@@ -5,7 +5,7 @@
 class CopyNode; //Επείδη γράφτηκε πρώτα η BookNode αλλά χρησιμοποιείται ένας δείκτης CopyNode σε εκείνη, πρέπει να δηλώσουμε την ύπαρξη της CopyNode
 
 class BookNode {
-    private: 
+    public: 
        std::string title; // Αρχικοποίηση των στοιχείων της κλάσης BookNode
        std::string author;
        std::string ISBN;
@@ -26,7 +26,7 @@ class BookNode {
 };
 
 class CopyNode{
-    private:
+    public:
         int copyID;  //αρχικοποίηση στοιχείων CopyNode
         std::string status;
         CopyNode* next;

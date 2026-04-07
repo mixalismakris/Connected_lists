@@ -190,11 +190,13 @@ void Library::loadFromFile(const string& filename) {
             if (b != nullptr) { // Εάν το βιβλίο βρέθηκε, προσθέτουμε το αντίγραφο στο βιβλίο χρησιμοποιώντας τη μέθοδο addCopy
                 int copyId = stoi(tokens[1]);
                 b->addCopy(copyId, tokens[2]);
+            } else {
+                cout << "Σφάλμα: δεν βρέθηκε το βιβλίο με ISBN " << lastIsbn << " για να προσθέσουμε το αντίγραφο.\n";
             }
         }
-        file.close(); // Κλείσιμο του αρχείου μετά την ολοκλήρωση της ανάγνωσης
-        cout << "Η βιβλιοθήκη φορτώθηκε επιτυχώς από το αρχείο!\n";
     }
+    file.close(); // Κλείσιμο του αρχείου μετά την ολοκλήρωση της ανάγνωσης
+    cout << "Η βιβλιοθήκη φορτώθηκε επιτυχώς από το αρχείο!\n";
 }
 
 void Library::saveToFile(const std::string& filename) {
