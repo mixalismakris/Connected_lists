@@ -1,18 +1,30 @@
+#include <sstream>
+#include <fstream>
 #include "Library.h"
 #include <iostream>
 using namespace std;
 
+// Βοηθητική συνάρτηση για την διάσπαση μιας γραμμής από το αρχείο σε tokens με βάση τον διαχωριστή '/'
+vector<string> parseLine(const std::string& line, char delim) {
+    vector<string> tokens;
+    stringstream ss(line);
+    string token;
+    while (getline(ss, token, delim)) { 
+        tokens.push_back(token);
+    }
+    return tokens;
+}
+
 // Υλοποίση constructor της κλάσης CopyNode
-CopyNode::CopyNode(int c, std::string s) {
+CopyNode::CopyNode(int c, string s) {
     copyID = c;  //Αρχικοποιήση τιμών
     status = s;
     next = nullptr;
-
     
 }
 
 // Υλοποίση constructor της κλάσης BookNode
-BookNode::BookNode(std::string d, std::string a, std::string isbn) {
+BookNode::BookNode(string d, string a, string isbn) {
     title = d; //Αρχικοποίηση τιμών
     author = a;
     ISBN = isbn;
@@ -20,7 +32,7 @@ BookNode::BookNode(std::string d, std::string a, std::string isbn) {
     next = nullptr;
 
 }
-void BookNode::addCopy(int copyid, std::string status) {
+void BookNode::addCopy(int copyid, string status) {
     CopyNode* newCopy = new CopyNode(copyid, status);
     if (copiesHead == nullptr ||  copyid < copiesHead -> copyID ){/*περίπτωση όπου το νέο αντίγραφο πρέπει να μπει στην αρχή της λίστας.Αυτό συμβαίνει εάν
                                                                         η λίστα είναι κενή ή εάν το copyID του καινόυργιου αντιγράγου είναι μικρότερο από του ήδη
@@ -76,7 +88,7 @@ Library::Library() {
 Library::~Library() {
 
 }
-void Library::addBook(std::string title, std::string author, std::string isbn) {
+void Library::addBook(string title, string author, string isbn) {
     BookNode* newBook = new BookNode(title,author,isbn ); //πανομοιότυπη υλοποίηση με την μέθοδο addCopy,απλώς η συνθήκη ταξινόμησης εδώ πρόκειται για το όνομα του βιβλίου
     
     if (booksHead == nullptr || newBook -> title < booksHead -> title) /*περίπτωση όπου το νέο βιβλίο πρέπει να μπει στην αρχή της λίστας.Αυτό συμβαίνει εάν
@@ -113,12 +125,24 @@ void Library::addBook(std::string title, std::string author, std::string isbn) {
 
 
 }
-void Library::removeBook(std::string isbn) {
+void Library::removeBook(string isbn) {
 
 }
-BookNode* Library::findBook(std::string isbn) {
-    return nullptr;
+
+BookNode* Library::findBook(string isbn) {
+    BookNode* current = booksHead; // Ξεκινάμε από την κεφαλή της λίστας, δηλαδή το πρώτο βιβλίο
+    
+    while (current != nullptr) { //Όσο δεν έχουμε φτάσει στο τέλος της λίστας  
+        if (current->ISBN == isbn) { //Εάν το ISBN του τρέχοντος βιβλίου είναι ίσο με το ζητούμενο
+            return current; // Τότε επιστρέφουμε τον δείκτη στο τρέχον βιβλίο 
+        } else  {
+            current = current->next; // Διαφορετικά, προχωράμε στον επόμενο κόμβο της λίστας
+        }
+    }
+    
+    return nullptr; // Επιστρέφουμε nullptr αν δεν βρεθεί το βιβλίο με το συγκεκριμένο ISBN στη λίστα
 }
+
 void Library::printAll() {
     BookNode* current = booksHead; // μεταβλητή για διάσχηση της λίστας
 
@@ -136,9 +160,43 @@ void Library::printAll() {
     }
 
 }
-void Library::loadFromFile(const std::string& filename) {
 
+void Library::loadFromFile(const string& filename) {
+   ifstream file(filename); // Δημιουργία αντικειμένου ifstream για το άνοιγμα του αρχείου με το όνομα που παρέχεται ως παράμετρος
+   if (!file.is_open()) { // Έλεγχος αν το αρχείο άνοιξε επιτυχώς. Εάν όχι, εμφανίζεται μήνυμα σφάλματος και η μέθοδος επιστρέφει
+        cout << "Σφάλμα: δεν ήταν δυνατό το άνοιγμα του αρχείου " << filename << "\n";
+        return;
+   }
+
+   string line; // Μεταβλητή για την αποθήκευση κάθε γραμμής που διαβάζεται από το αρχείο   
+   string lastIsbn = ""; // Μεταβλητή για την αποθήκευση του τελευταίου ISBN που διαβάστηκε, ώστε να συνδέσουμε τα αντίγραφα με το σωστό βιβλίο
+
+   while (getline(file, line)) { // Διαβάζουμε το αρχείο γραμμή προς γραμμή μέχρι να φτάσουμε στο τέλος του αρχείου
+        if (line.empty()) continue; // Εάν η γραμμή είναι κενή, παραλείπουμε την επεξεργασία και συνεχίζουμε με την επόμενη γραμμή
+
+        vector<string> tokens = parseLine(line); // Χρησιμοποιούμε τη βοηθητική συνάρτηση parseLine για να διαχωρίσουμε τη γραμμή σε tokens με βάση τον διαχωριστή '|'
+
+        if (tokens[0] == "BOOK") {      // Εάν το πρώτο token είναι "BOOK", σημαίνει ότι η γραμμή περιέχει πληροφορίες για ένα βιβλίο
+            string ISBN = tokens[1];    // Ανάθεση του ISBN, του τίτλου και του συγγραφέα από τα αντίστοιχα tokens
+            string title = tokens[2];
+            string author = tokens[3];
+            addBook(title, author, ISBN); // Κλήση της μεθόδου addBook για να προσθέσουμε το βιβλίο στη βιβλιοθήκη  
+            lastIsbn = ISBN;
+        } 
+        else if (tokens[0] == "COPY") { // Έλεγχος αν το πρώτο token είναι "COPY", που σημαίνει ότι η γραμμή περιέχει πληροφορίες για ένα αντίγραφο βιβλίου
+            string CopyID = tokens[1];
+            string status = tokens[2];
+            BookNode* b = findBook(lastIsbn); // Βρίσκουμε το βιβλίο με το τελευταίο ISBN που διαβάσαμε 
+            if (b != nullptr) { // Εάν το βιβλίο βρέθηκε, προσθέτουμε το αντίγραφο στο βιβλίο χρησιμοποιώντας τη μέθοδο addCopy
+                int copyId = stoi(tokens[1]);
+                b->addCopy(copyId, tokens[2]);
+            }
+        }
+        file.close(); // Κλείσιμο του αρχείου μετά την ολοκλήρωση της ανάγνωσης
+        cout << "Η βιβλιοθήκη φορτώθηκε επιτυχώς από το αρχείο!\n";
+    }
 }
+
 void Library::saveToFile(const std::string& filename) {
-    
+
 }

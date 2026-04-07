@@ -31,7 +31,7 @@ class CopyNode{
         std::string status;
         CopyNode* next;
 
-        friend class BookNode; /*Δίνουμε τις διπλανές ως φιλικές κλάσεις, έτσι ώστε να έχουν πρόρσβαη στα ιδιοτηκά στοιχεία*/
+        friend class BookNode; /*Δίνουμε τις διπλανές ως φιλικές κλάσεις, έτσι ώστε να έχουν πρόρσβαη στα ιδιοτικά στοιχεία*/
         friend class Library;
 
     public:
