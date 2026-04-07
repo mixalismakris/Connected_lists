@@ -5,7 +5,7 @@
 class CopyNode; //Επείδη γράφτηκε πρώτα η BookNode αλλά χρησιμοποιείται ένας δείκτης CopyNode σε εκείνη, πρέπει να δηλώσουμε την ύπαρξη της CopyNode
 
 class BookNode {
-    public: 
+    private: 
        std::string title; // Αρχικοποίηση των στοιχείων της κλάσης BookNode
        std::string author;
        std::string ISBN;
@@ -13,7 +13,8 @@ class BookNode {
        CopyNode* copiesHead; //Δείκτης τύπου CopyNode που δείχνει στην αρχή της δευτερεύουσας λίστας LOC με τα αντίγραφα των βιβλίων, εφόσον υπάρχει
        BookNode* next; //Δείκτης τύπου BookNode που δείχνει στον επόμενο κόμβο της κύριας λίστας LOB, με την επωνυμία του βιβλίου 
 
-       friend class Library;/*Δίνουμε τις διπλανές ως φιλικές κλάσεις, έτσι ώστε να έχουν πρόρσβαη στα ιδιοτηκά στοιχεία*/
+       friend class Library;
+        friend int main();                    /*Δίνουμε τις διπλανές ως φιλικές κλάσεις, έτσι ώστε να έχουν πρόρσβαη στα ιδιοτηκά στοιχεία*/
     public:
         BookNode(std::string d , std::string a, std::string isbn); /*Δημιουργία κατασκευαστή ώστε όταν δημιουργηθεί αντικείμενο τύπου BookNod
                                                                     τα στοιχεία του να έχουν αρχικές τιμές*/
@@ -26,7 +27,7 @@ class BookNode {
 };
 
 class CopyNode{
-    public:
+    private:
         int copyID;  //αρχικοποίηση στοιχείων CopyNode
         std::string status;
         CopyNode* next;

@@ -4,7 +4,7 @@
 #include <iostream>
 using namespace std;
 
-// Βοηθητική συνάρτηση για την διάσπαση μιας γραμμής από το αρχείο σε tokens με βάση τον διαχωριστή '/'
+// Βοηθητική συνάρτηση για την διάσπαση μιας γραμμής από το αρχείο σε tokens με βάση τον διαχωριστή '|'
 vector<string> parseLine(const std::string& line, char delim) {
     vector<string> tokens;
     stringstream ss(line);
@@ -68,16 +68,96 @@ void BookNode::addCopy(int copyid, string status) {
 
 }
 bool BookNode::borrowCopy(int copyid) {
-    return false;
+    CopyNode* current = copiesHead; // διάτρεξη λίστας από την αρχή
+    while(current){ //όσο υπάρχει κόμβος, επανέλαβε
+        if (current -> copyID == copyid ){ //αν το copyid ισούται με αυτό που ψάχνουμε
+            if(current -> status == "available"){
+                current -> status = "borrowed";// αν είναι διαθέσιμο , άλλαξε την κατάσταση του σε δανεισμένο.
+                return true;//βρέθηκε
+            }
+            return false;//άλλιως, δεν είναι διαθέσιμο (damaged/borrowed)
+
+        }
+        current = current -> next;//προχωράμε σε επόμενο κόμβο
+    }
+
+    return false; //δεν βρέθηκε
 }
 void BookNode::removeCopy(int copyid) {
+    if (!copiesHead){ //αν η λίστα είναι κενή
+        cout << "Δεν υπάρχουν αντίγραφα!"<< endl;
+        return;
+    }
+    CopyNode* current = copiesHead;//αρχή της λίστας για διάτρεξη
+    if (current ->copyID == copyid ){ //Αν αφαιρείται το πρώτο αντίγραφο
+        if(current -> status == "borrowed"){ //είναι δανεισμένο
+                cout <<"Το αντίγραφο έχει δανειστεί! Δεν μπορει να διαγραφεί."<<endl;
+                return;
+            }
+        copiesHead = current -> next; //αν δεν είναι δανεισμένο ,ο πρώτος κόμβος γίνεται ο αμέσως επόμενος
+        delete current;// διαγραφή τωρινού
+        return;
+    }
+    while(current && current -> next){//όσο υπάρχει ο τωρινός κόμβος αλλα ΚΑΙ ο επόμενος, επανέλαβε
+        if (current -> next -> copyID == copyid){ //ελέγχουμε τον επόμενο του τωρινόυ,για ευκολότερη αντιμετάθεση
+            if(current -> next -> status == "borrowed"){ //είναι δανεισμένο
+                cout <<"Το αντίγραφο έχει δανειστεί! Δεν μπορει να διαγραφεί"<<endl;
+                return;
+            }
+            else{
+                CopyNode* toDelete = current -> next; //προσωρινή μεταβλητή που βάζουμε τον προς διαγραφή δέικτη του επόμενου του τωρινόυ
+                current -> next = current -> next -> next; //στον δείκτη του επόμενο του τωρινόυ βάζουμε τον ΕΠΟΜΕΝΟ του επομένου
+                delete toDelete; //διαγράφουμε τον προς διαγραφή κόμβο
+                return;
+            }
+        }
+        current = current -> next; //διάσχηση λίστας
+    }
+    cout << "Το αντίγραφο δεν βρέθηκε" << endl;
 
 }
 void BookNode::returnCopy(int copyid) {
+    CopyNode* current = copiesHead; // διάτρεξη λίστας από την αρχή
+    while (current)//όσο υπάρχει κόμβος, επανέλαβε
+    {
+        if(current -> copyID == copyid){ //αν το copyid ισούται με αυτό που ψάχνουμε
+            if (current -> status != "borrowed"){ //το βιβλίο δεν είναι δανεισμένο
+                cout << "Το αντίγραφο δεν έχει δανειστεί!"<<endl;
+                return;
+            }
+            string answer; //μεταβλητή για καταχώριση απάντησης
+            while(true){//ώστε να γίνεται έλεγχος εγκυρότητας
+                cout<<"Είναι το αντίτυπο σε καλή κατάσταση; (y/n)"<< endl; // ζητείται από τον χρήστη αν το βιβλίο είναι σε καλή κατάσταση
+                cin >> answer;
+                if (answer == "y" || answer == "Y" ){
+                    current -> status = "available"; //αλλαγή κατάστασης σε διαθέσιμο
+                    cout <<"επιστράφηκε το βιβλίο σε καλή κατάσταση" <<endl;
+                    return;
+                }
+                else if (answer == "n" || answer == "N"){
+                    current -> status = "damaged"; //αλλαγή κατάστασης σε κατεστραμένο
+                    cout <<"επιστράφηκε το βιβλίο σε κακή κατάσταση" <<endl;
+                    return;
+                }
+                else{
+                    cout << "Παρακαλώ δώστε έγκυρη απάντηση (y/n)"<<endl;
+                }
+            }
+        }
+        current = current -> next;
+    }
+    cout << "Το αντίγραφο δεν βρέθηκε!"<< endl;
 
 }
 int BookNode::countAvailable() {
-    return 0;
+    int count = 0;
+    CopyNode* current = copiesHead;//βρίσκουμε την αρχή της δευτερεύουσας λίστας για να την διατρέξουμε
+    while(current){ //όσο υπάρχει κόμβος
+        if(current -> status == "available") count += 1;  //αν διαθέσιμο,αύξηση του μετρητή
+        current = current -> next; //επόμενος κόμβος
+    }
+
+    return count;
 }
 
 // Υλοποίση της κλάσης Library
@@ -85,7 +165,20 @@ Library::Library() {
     booksHead = nullptr;
 
 }
-Library::~Library() {
+Library::~Library() {//καταστροφέας, αδειάζουμε όλη την μνήμη από τα βιβλία
+    BookNode* currentBook = booksHead; //ώστε να διατρέξουμε την λίστα με τα βιβλία
+    CopyNode* currentCopy;//ώστε να διατρέξουμε τις λίστες με τα αντίγραφα
+    while(currentBook){//όσο υπάρχει βιβλίο
+        currentCopy = currentBook -> copiesHead; //κεφαλή της λίστας των αντιγράφων του συγκεκριμένου βιβλίου
+        while(currentCopy){
+            CopyNode* toDeleteCopy = currentCopy; //αποθηκεύουμε το τωρινό αντίγραφο σε προσωρινή μεταβλητή ώστε να αντιγραφή
+            currentCopy = currentCopy -> next; //επόμενος κόμβος
+            delete toDeleteCopy; //διαγραφή αντιγράφου
+        }
+        BookNode* toDeleteBook = currentBook; //αποθηκεύουμε το τωρινό βιβλίο σε προσωρινή μεταβλητή ώστε να αντιγραφή
+        currentBook = currentBook ->next; //επόμενος κόμβος
+        delete toDeleteBook; //διαγραφή βιβλίου
+    }
 
 }
 void Library::addBook(string title, string author, string isbn) {
@@ -101,8 +194,8 @@ void Library::addBook(string title, string author, string isbn) {
 
 
     }else // υπόλοιπες περιπτώσεις, δηλαδή εάν η εισαγωγή πρέπει να γίνει στο τέλος ή στο ενδιάμεσο της λίστας
-
     {
+    
        BookNode* current = booksHead; // μεταβλητή για να διατρέξουμε την λίστα
        while (current -> next && current ->next -> title < newBook -> title){   /*όσο υπάρχει διέυθυνση επόμενου βιβλίου και 
                                                                                 ο τίτλος του επομένου του τωρινού παραμένει αλφαβητικά μικρότερος νέου
@@ -126,13 +219,58 @@ void Library::addBook(string title, string author, string isbn) {
 
 }
 void Library::removeBook(string isbn) {
+    BookNode* current = booksHead; // βρίσκουμε την κεφαλή της κύριας λίστας
+    BookNode* previous = nullptr; //θα αποθηκεύουμε τον προηγούμενο κόμβο
+    while (current ){//όσο υπάρχει κόμβος κύριας λίστας 
+        if (current -> ISBN == isbn){ //αν το isbn αντιστοιχεί
+            CopyNode* currentOfCopies = current -> copiesHead; //βρίσκουμε την κορυφή της λίστας των αντιγράφων του βιβλίου
+            while(currentOfCopies){ //όσο υπάρχουν αντίγραφα
+                if(currentOfCopies -> status == "borrowed"){ //αν έστω και ένα βιβλίο έχει δανειστεί , η διαγραφή ακυρώνεται
+                    cout << "Υπάρχει δανεισμένο αντίγραφο! Το βιβλίο δεν μπορεί να διαγραφεί"<<endl; 
+                    return;
+                }
+                currentOfCopies = currentOfCopies-> next;//διατρέχουμε την λίστα των αντιγράφων
+            }
+            //εφόσον περάσαμε την παραπάνω συνθήκη, μπορεί να αρχίσει η διαγραφή
+            currentOfCopies = current -> copiesHead; //ξανά αρχικοποιούμε την κεφαλή των αντιγράφων
+            while (currentOfCopies){
+                CopyNode* toDelete = currentOfCopies; //αποθηκεύουμε τον διαγραφέντα κόμβο
+                currentOfCopies = currentOfCopies -> next; // προχωράμε στον επόμενο
+                delete toDelete;//διαγραφή αντιγράφου
+                
+            }
+            //εφόσον φτάσουμε εδώ, έχουμε αδιάσει από αντίγραφα και είμαστε έτοιμη για αντιγραγή βιβλίου
+            if (!previous){//ειδική περίπτωση πρώτου βιβλίου, δεν έχει πάρει τιμή το previous
+                booksHead = current -> next;
+                delete current;
+                return;
+
+            }
+            else{//υπόλοιπες περιπτώσεις, έχει γίνει μια επανάληψη
+                previous-> next = current -> next;
+                delete current;
+                return;
+
+
+            }
+            
+
+
+
+        }
+        previous = current; //αποθηκεύουμε τον τωρινό στη μεταλητή previous ώστε να τον έχουμε μετά για αντιμετάθεση
+        current = current -> next;//προχωράμε στον επόμενο
+       
+
+    }
+    cout << "Το βιβλίο δεν υπάρχει!"<<endl;
 
 }
 
 BookNode* Library::findBook(string isbn) {
     BookNode* current = booksHead; // Ξεκινάμε από την κεφαλή της λίστας, δηλαδή το πρώτο βιβλίο
     
-    while (current != nullptr) { //Όσο δεν έχουμε φτάσει στο τέλος της λίστας  
+    while (current) { //Όσο δεν έχουμε φτάσει στο τέλος της λίστας  
         if (current->ISBN == isbn) { //Εάν το ISBN του τρέχοντος βιβλίου είναι ίσο με το ζητούμενο
             return current; // Τότε επιστρέφουμε τον δείκτη στο τρέχον βιβλίο 
         } else  {
@@ -184,10 +322,8 @@ void Library::loadFromFile(const string& filename) {
             lastIsbn = ISBN;
         } 
         else if (tokens[0] == "COPY") { // Έλεγχος αν το πρώτο token είναι "COPY", που σημαίνει ότι η γραμμή περιέχει πληροφορίες για ένα αντίγραφο βιβλίου
-            string CopyID = tokens[1];
-            string status = tokens[2];
             BookNode* b = findBook(lastIsbn); // Βρίσκουμε το βιβλίο με το τελευταίο ISBN που διαβάσαμε 
-            if (b != nullptr) { // Εάν το βιβλίο βρέθηκε, προσθέτουμε το αντίγραφο στο βιβλίο χρησιμοποιώντας τη μέθοδο addCopy
+            if (b) { // Εάν το βιβλίο βρέθηκε, προσθέτουμε το αντίγραφο στο βιβλίο χρησιμοποιώντας τη μέθοδο addCopy
                 int copyId = stoi(tokens[1]);
                 b->addCopy(copyId, tokens[2]);
             } else {
