@@ -336,5 +336,29 @@ void Library::loadFromFile(const string& filename) {
 }
 
 void Library::saveToFile(const std::string& filename) {
+        // Ανοίγουμε αρχείο για εγγραφή (ofstream)
+        // Διαγράφει τα παλιά περιεχόμενα και γράφει από την αρχή!
+    ofstream file(filename);
+
+    // Έλεγχος αν το αρχείο άνοιξε επιτυχώς
+    if (!file.is_open()) {
+        cout << "Σφάλμα: Δεν ήταν δυνατό το άνοιγμα του αρχείου για αποθάκευση.\n";
+        return;
+    }
+
+    BookNode* currentBook = booksHead; // Ξεκινάμε από την κεφαλή της λίστας βιβλίων
+    while (currentBook) {
+        // Γράφουμε τις πληροφορίες του βιβλίου στο αρχείο με τη μορφή "BOOK|ISBN|Title|Author"
+        file << "BOOK|" << currentBook->ISBN << "|" << currentBook->title << "|" << currentBook->author << "\n";
+        
+        CopyNode* currentCopy = currentBook->copiesHead; // Ξεκινάμε από την κεφαλή της λίστας αντιγράφων του τρέχοντος βιβλίου
+        while (currentCopy) {
+            file << "COPY|" << currentCopy->copyID << "|" << currentCopy->status << "\n"; // Γράφουμε τις πληροφορίες του αντιγράφου με τη μορφή "COPY|CopyID|Status"
+            currentCopy = currentCopy->next; // Προχωράμε στον επόμενο κόμβο της λίστας αντιγράφων
+        }
+        currentBook = currentBook->next; // Προχωράμε στον επόμενο κόμβο της λίστας βιβλίων
+    }
+    file.close(); // Κλείνουμε το αρχείο μετά την ολοκλήρωση της εγγραφής
+    cout << "Η βιβλιοθήκη αποθηκεύτηκε επιτυχώς στο αρχείο: " << filename << "\n";
 
 }

@@ -39,7 +39,9 @@ class CopyNode{
         CopyNode(int c, std::string s = "available");/*Δημιουργία κατασκευαστή ώστε όταν δημιουργηθεί αντικείμενο τύπου CopyNode
                                                                     τα στοιχεία του να έχουν αρχικές τιμές με προκαθορισμένη στο status
                                                                     available βάση εκφώνησης*/
-
+        int getCopyID() { return copyID; } // Δημιουργία getter για το copyID ώστε να μπορούμε να το χρησιμοποιήσουμε σε άλλες κλάσεις
+        std::string getStatus() { return status; } // Δημιουργία getter για το status ώστε να μπορούμε να το χρησιμοποιήσουμε σε άλλες κλάσεις
+        CopyNode* getNext() { return next; } // Δημιουργία getter για το next ώστε να μπορούμε να το χρησιμοποιήσουμε σε άλλες κλάσεις
 
 };
 

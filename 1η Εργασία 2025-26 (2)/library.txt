@@ -1,18 +1,18 @@
-BOOK|978-905-27-2307-5|Modern Artificial Intelligence: Principles and Applications|Evans O.
-COPY|1|available
-COPY|2|available
 BOOK|978-975-91-3794-6|Foundations of Computer Networks: A Practical Approach|Miller W.
-COPY|3|borrowed
+COPY|1|available
 COPY|2|available
-COPY|6|borrowed
-COPY|5|available
-COPY|1|available
+COPY|3|borrowed
 COPY|4|available
-BOOK|978-746-77-8573-2|Modern Artificial Intelligence|Thomas P.
-COPY|1|available
+COPY|5|available
+COPY|6|borrowed
+BOOK|978-986-64-8459-9|Foundations of Machine Learning: Concepts and Algorithms|Thomas C.
+COPY|1|borrowed
+COPY|2|available
 BOOK|978-787-91-2638-3|Introduction to Computer Graphicsfor Software Engineers|Lewis J.
 COPY|1|available
 COPY|2|available
-BOOK|978-986-64-8459-9|Foundations of Machine Learning: Concepts and Algorithms|Thomas C.
+BOOK|978-746-77-8573-2|Modern Artificial Intelligence|Thomas P.
+COPY|1|available
+BOOK|978-905-27-2307-5|Modern Artificial Intelligence: Principles and Applications|Evans O.
 COPY|1|borrowed
 COPY|2|available
