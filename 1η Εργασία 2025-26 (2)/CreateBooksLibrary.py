@@ -23,7 +23,7 @@ import random
 import itertools
 
 # ── CONTROL PARAMETER ─────────────────────────────────────────────────────────
-NUM_BOOKS   = 5        # <-- change this to control the number of books
+NUM_BOOKS   = 50        # <-- change this to control the number of books
 MIN_COPIES  = 1           # minimum copies per book
 MAX_COPIES  = 6           # maximum copies per book
 OUTPUT_FILE = "library.txt"

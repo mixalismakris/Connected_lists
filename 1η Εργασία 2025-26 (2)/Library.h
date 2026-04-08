@@ -14,7 +14,7 @@ class BookNode {
        BookNode* next; //Δείκτης τύπου BookNode που δείχνει στον επόμενο κόμβο της κύριας λίστας LOB, με την επωνυμία του βιβλίου 
 
        friend class Library;
-        friend int main();                    /*Δίνουμε τις διπλανές ως φιλικές κλάσεις, έτσι ώστε να έχουν πρόρσβαη στα ιδιοτηκά στοιχεία*/
+         friend int main();                    /*Δίνουμε τις διπλανές ως φιλικές κλάσεις, έτσι ώστε να έχουν πρόρσβαη στα ιδιοτηκά στοιχεία*/
     public:
         BookNode(std::string d , std::string a, std::string isbn); /*Δημιουργία κατασκευαστή ώστε όταν δημιουργηθεί αντικείμενο τύπου BookNod
                                                                     τα στοιχεία του να έχουν αρχικές τιμές*/
@@ -34,14 +34,13 @@ class CopyNode{
 
         friend class BookNode; /*Δίνουμε τις διπλανές ως φιλικές κλάσεις, έτσι ώστε να έχουν πρόρσβαη στα ιδιοτικά στοιχεία*/
         friend class Library;
+        friend int main();
 
     public:
         CopyNode(int c, std::string s = "available");/*Δημιουργία κατασκευαστή ώστε όταν δημιουργηθεί αντικείμενο τύπου CopyNode
                                                                     τα στοιχεία του να έχουν αρχικές τιμές με προκαθορισμένη στο status
                                                                     available βάση εκφώνησης*/
-        int getCopyID() { return copyID; } // Δημιουργία getter για το copyID ώστε να μπορούμε να το χρησιμοποιήσουμε σε άλλες κλάσεις
-        std::string getStatus() { return status; } // Δημιουργία getter για το status ώστε να μπορούμε να το χρησιμοποιήσουμε σε άλλες κλάσεις
-        CopyNode* getNext() { return next; } // Δημιουργία getter για το next ώστε να μπορούμε να το χρησιμοποιήσουμε σε άλλες κλάσεις
+        
 
 };
 

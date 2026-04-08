@@ -1,18 +1,221 @@
-BOOK|978-975-91-3794-6|Foundations of Computer Networks: A Practical Approach|Miller W.
+BOOK|978-039-69-2551-4|A Critical Approach to Computational Biology: A Complete Guide|Baker F.
+COPY|1|available
+BOOK|978-072-22-7548-1|A Critical Approach to Human-Computer Interaction: Methods and Applications|Bishop L.
+COPY|1|available
+COPY|2|borrowed
+COPY|3|available
+COPY|4|borrowed
+COPY|5|available
+COPY|6|borrowed
+BOOK|978-228-49-7573-1|A Practical Guide to Cloud Computing: Advanced Techniques|Johnson W.
+COPY|1|available
+COPY|2|available
+COPY|3|available
+BOOK|978-975-91-3794-6|A Practical Guide to Machine Learningfor Data Scientists|Aho P.
+COPY|1|damaged
+COPY|2|available
+COPY|3|available
+COPY|4|borrowed
+COPY|5|available
+COPY|6|available
+BOOK|978-076-19-9288-2|A Practical Guide to Network Security: Methods and Applications|Martin K.
+COPY|1|available
+COPY|2|borrowed
+COPY|3|available
+BOOK|978-986-64-8459-9|A Practical Guide to Programming Languages: Methods and Applications|Cormen Y.
+COPY|1|borrowed
+COPY|2|available
+COPY|3|damaged
+BOOK|978-618-62-3483-5|Advanced Deep Learning: Concepts and Algorithms|Lewis S.
+COPY|1|available
+COPY|2|damaged
+COPY|3|available
+COPY|4|borrowed
+BOOK|978-096-58-5139-8|Advanced Deep Learning: From Theory to Practice|Sedgewick Y.
+COPY|1|damaged
+COPY|2|borrowed
+COPY|3|available
+COPY|4|available
+COPY|5|available
+COPY|6|available
+BOOK|978-117-35-7447-5|Analysis and Design of Computational Geometry: Advanced Techniques|Miller I.
 COPY|1|available
 COPY|2|available
 COPY|3|borrowed
 COPY|4|available
+BOOK|978-040-91-6350-6|Analysis and Design of Cybersecurity|Phillips T.
+COPY|1|borrowed
+BOOK|978-008-19-1725-1|Analysis and Design of Programming Languagesfor Programmers|Goodfellow K.
+COPY|1|available
+COPY|2|available
+COPY|3|available
+BOOK|978-921-59-1787-7|Applied Cryptographyfor Programmers|Harris G.
+COPY|1|damaged
+COPY|2|available
+COPY|3|borrowed
+COPY|4|available
+BOOK|978-583-51-1195-4|Classical Computer Graphicsfor Software Engineers|Sedgewick D.
+COPY|1|borrowed
+COPY|2|available
+COPY|3|available
+COPY|4|available
+COPY|5|borrowed
+BOOK|978-499-05-5955-7|Concepts in Cloud Computing: Advanced Techniques|Ullman E.
+COPY|1|available
+COPY|2|damaged
+COPY|3|available
+COPY|4|available
+COPY|5|damaged
+COPY|6|available
+BOOK|978-746-77-8573-2|Concepts in Computer Networks: Analysis and Implementation|Goodfellow G.
+COPY|1|available
+COPY|2|borrowed
+COPY|3|borrowed
+COPY|4|available
+COPY|5|borrowed
+BOOK|978-451-46-8396-6|Concepts in Cryptography: Methods and Applications|Tanenbaum J.
+COPY|1|available
+COPY|2|available
+COPY|3|available
+COPY|4|borrowed
+COPY|5|damaged
+BOOK|978-297-48-2592-6|Concepts in Digital Circuits|Smith N.
+COPY|1|available
+BOOK|978-066-40-5610-0|Core Concepts in Compiler Design: Advanced Techniques|Lamport T.
+COPY|1|available
+BOOK|978-518-57-4306-5|Core Concepts in Robotics: From Theory to Practice|Knuth L.
+COPY|1|borrowed
+COPY|2|available
+BOOK|978-264-60-4194-4|Elements of Cloud Computingfor Software Engineers|Moore P.
+COPY|1|borrowed
+BOOK|978-758-31-9188-2|Elements of Database Systemsfor Data Scientists|Thompson U.
+COPY|1|damaged
+COPY|2|available
+COPY|3|damaged
+COPY|4|available
+BOOK|978-865-79-5138-8|Essential Computational Biology: A Practical Approach|Williams T.
+COPY|1|available
+COPY|2|borrowed
+COPY|3|borrowed
+COPY|4|available
+BOOK|978-939-50-7096-6|Essential Numerical Analysis: Principles and Applications|Thompson Q.
+COPY|1|borrowed
+BOOK|978-244-26-9943-1|Essential Software Engineering: An Algorithmic Perspective|Perez T.
+COPY|1|damaged
+COPY|2|available
+COPY|3|available
+COPY|4|available
+COPY|5|borrowed
+COPY|6|available
+BOOK|978-635-82-0934-0|Foundations of Compiler Design: A Complete Guide|Clark F.
+COPY|1|available
+COPY|2|available
+COPY|3|available
+BOOK|978-971-60-2384-8|Foundations of Computer Architecture: An Algorithmic Perspective|Davis I.
+COPY|1|available
+BOOK|978-204-51-5385-9|Foundations of Computer Networks: Principles and Applications|Russell C.
+COPY|1|damaged
+COPY|2|available
+COPY|3|borrowed
+COPY|4|available
+BOOK|978-781-56-2301-3|Foundations of Database Systems: From Theory to Practice|Collins L.
+COPY|1|available
+COPY|2|damaged
+COPY|3|available
+COPY|4|damaged
+COPY|5|available
+BOOK|978-642-63-1595-9|Foundations of Robotics: Principles and Applications|Patterson X.
+COPY|1|available
+COPY|2|damaged
+COPY|3|damaged
+COPY|4|available
+BOOK|978-458-16-5554-5|Handbook of Computer Sciencefor Data Scientists|Wright F.
+COPY|1|available
+BOOK|978-719-94-7802-5|Handbook of Computer Vision: Analysis and Implementation|Wright Q.
+COPY|1|available
+COPY|2|borrowed
+COPY|3|available
+BOOK|978-477-59-8767-4|Handbook of Embedded Systems: A Complete Guide|Perez N.
+COPY|1|available
+COPY|2|available
+BOOK|978-784-39-8964-8|Handbook of Machine Learning|Lamport L.
+COPY|1|available
+COPY|2|available
+BOOK|978-888-11-8174-2|Modern Data Structures: Analysis and Implementation|Martin G.
+COPY|1|available
+COPY|2|available
+COPY|3|available
+COPY|4|available
+COPY|5|borrowed
+BOOK|978-655-27-5245-1|Modern Digital Circuits: Theory and Practice|Young G.
+COPY|1|available
+COPY|2|available
+COPY|3|borrowed
+COPY|4|available
+COPY|5|borrowed
+COPY|6|available
+BOOK|978-787-91-2638-3|Practical Computer Vision: Advanced Techniques|Roberts C.
+COPY|1|available
+COPY|2|borrowed
+COPY|3|borrowed
+BOOK|978-685-11-5716-2|Practical Operating Systemsfor Data Scientists|Williams Y.
+COPY|1|available
+COPY|2|available
+COPY|3|available
+COPY|4|available
+COPY|5|available
+COPY|6|available
+BOOK|978-824-01-2336-9|Practical Quantum Computing: Advanced Techniques|Bishop M.
+COPY|1|borrowed
+COPY|2|borrowed
+COPY|3|available
+BOOK|978-069-35-9445-1|Principles of Algorithms: Modern Approaches|Thompson I.
+COPY|1|available
+COPY|2|damaged
+COPY|3|available
+BOOK|978-879-36-6568-2|Principles of Computer Architecture: A Complete Guide|Knuth R.
+COPY|1|damaged
+BOOK|978-952-98-5593-3|Principles of Information Systems: Methods and Applications|Robinson Z.
+COPY|1|borrowed
+COPY|2|available
+COPY|3|borrowed
+BOOK|978-173-37-2645-0|Principles of Operating Systems|Garcia H.
+COPY|1|borrowed
+BOOK|978-905-27-2307-5|Principles of Robotics: Theory and Practice|Jones T.
+COPY|1|available
+COPY|2|borrowed
+COPY|3|borrowed
+COPY|4|damaged
+BOOK|978-087-23-1775-8|Survey of Database Systems: An Algorithmic Perspective|Norvig X.
+COPY|1|available
+COPY|2|borrowed
+COPY|3|available
+BOOK|978-962-15-9318-4|Survey of Natural Language Processing: Principles and Applications|White D.
+COPY|1|damaged
+COPY|2|available
+COPY|3|available
+COPY|4|available
+BOOK|978-898-87-0699-2|Theory of Artificial Intelligence|Mitchell A.
+COPY|1|borrowed
+COPY|2|available
+COPY|3|available
+COPY|4|available
+COPY|5|available
+COPY|6|damaged
+BOOK|978-372-45-1461-9|Theory of Software Engineeringfor Programmers|Thomas Z.
+COPY|1|available
+BOOK|978-418-79-2113-6|Theory of Software Testing: A Complete Guide|Johnson E.
+COPY|1|damaged
+COPY|2|available
+COPY|3|available
+COPY|4|borrowed
+BOOK|978-382-10-6769-8|Topics in Cloud Computing: Theory and Practice|Phillips K.
+COPY|1|available
+COPY|2|borrowed
+BOOK|978-297-46-7059-5|Understanding Artificial Intelligence|Cormen A.
+COPY|1|borrowed
+COPY|2|damaged
+COPY|3|borrowed
+COPY|4|borrowed
 COPY|5|available
 COPY|6|borrowed
-BOOK|978-986-64-8459-9|Foundations of Machine Learning: Concepts and Algorithms|Thomas C.
-COPY|1|borrowed
-COPY|2|available
-BOOK|978-787-91-2638-3|Introduction to Computer Graphicsfor Software Engineers|Lewis J.
-COPY|1|available
-COPY|2|available
-BOOK|978-746-77-8573-2|Modern Artificial Intelligence|Thomas P.
-COPY|1|available
-BOOK|978-905-27-2307-5|Modern Artificial Intelligence: Principles and Applications|Evans O.
-COPY|1|borrowed
-COPY|2|available

@@ -70,8 +70,8 @@ int main() {
                     CopyNode* currentCopy = b->copiesHead;
                     if (!currentCopy) cout << "Δεν υπάρχουν αντίτυπα.\n";
                     while (currentCopy) {
-                        cout << " -> ID: " << currentCopy->getCopyID() << " | Κατάσταση: " << currentCopy->getStatus() << "\n";
-                        currentCopy = currentCopy->getNext();
+                        cout << " -> ID: " << currentCopy->copyID << " | Κατάσταση: " << currentCopy->status << "\n";
+                        currentCopy = currentCopy->next;
                     }
                 }
                 break;
@@ -82,7 +82,7 @@ int main() {
                 cin >> isbn;
                 
                 if (lib->findBook(isbn) != nullptr) {
-                    cout << "Σφάλμα: Το ISBN υπάρχει ήδη στη βιβλιοθήκη!\n";
+                    cout << "Σφάλμα: Το ISBN υπάρχει ήδη στη βιβλιοθήκη!"<<endl;
                 } else {
                     cout << "Δώσε Τίτλο: ";
                     cin.ignore(); // Καθαρισμός του buffer για να διαβάσει σωστά τα κενά
@@ -90,7 +90,7 @@ int main() {
                     cout << "Δώσε Συγγραφέα: ";
                     getline(cin, author);
                     lib->addBook(title, author, isbn);
-                    cout << "Το βιβλίο προστέθηκε επιτυχώς!\n";
+                    cout << "Το βιβλίο προστέθηκε επιτυχώς!"<<endl;;
                 }
                 break;
             }
@@ -111,9 +111,9 @@ int main() {
                     cout << "Δώσε νέο ID αντιτύπου: ";
                     cin >> copyId;
                     b->addCopy(copyId, "available");
-                    cout << "Το αντίτυπο προστέθηκε!\n";
+                    cout << "Το αντίτυπο προστέθηκε!"<<endl;
                 } else {
-                    cout << "Σφάλμα: Το βιβλίο δεν βρέθηκε.\n";
+                    cout << "Σφάλμα: Το βιβλίο δεν βρέθηκε."<<endl;
                 }
                 break;
             }
@@ -127,7 +127,7 @@ int main() {
                     cout << "Δώσε ID αντιτύπου προς διαγραφή: ";
                     cin >> copyId;
                     b->removeCopy(copyId);
-                } else cout << "Σφάλμα: Το βιβλίο δεν βρέθηκε.\n";
+                } else cout << "Σφάλμα: Το βιβλίο δεν βρέθηκε." <<endl;
                 break;
             }
             case 9: { // Δανεισμός (με έλεγχο αν υπάρχει το βιβλίο και το αντίτυπο και αν είναι διαθέσιμο)
@@ -140,11 +140,11 @@ int main() {
                     cout << "Δώσε ID αντιτύπου για δανεισμό: ";
                     cin >> copyId;
                     if (b->borrowCopy(copyId)) {
-                        cout << "Επιτυχής δανεισμός!\n";
+                        cout << "Επιτυχής δανεισμός! Εναπομείναντα διαθέσιμα αντίτυπα: " << b->countAvailable() << endl;
                     } else {
-                        cout << "Σφάλμα: Το αντίτυπο είναι ήδη δανεισμένο ή δεν βρέθηκε.\n";
+                        cout << "Σφάλμα: Το αντίτυπο είναι ήδη δανεισμένο ή δεν βρέθηκε."<<endl;
                     }
-                } else cout << "Σφάλμα: Το βιβλίο δεν βρέθηκε.\n";
+                } else cout << "Σφάλμα: Το βιβλίο δεν βρέθηκε."<<endl;
                 break;
             }
             case 10: { // Επιστροφή (με έλεγχο αν υπάρχει το βιβλίο και το αντίτυπο)
@@ -157,7 +157,7 @@ int main() {
                     cout << "Δώσε ID αντιτύπου για επιστροφή: ";
                     cin >> copyId;
                     b->returnCopy(copyId);
-                } else cout << "Σφάλμα: Το βιβλίο δεν βρέθηκε.\n";
+                } else cout << "Σφάλμα: Το βιβλίο δεν βρέθηκε." << endl;
                 break;
             }
             case 11: { // Διαθέσιμα αντίτυπα (με έλεγχο αν υπάρχει το βιβλίο)
@@ -166,8 +166,16 @@ int main() {
                 cin >> isbn;
                 BookNode* b = lib->findBook(isbn);
                 if (b) {
-                    cout << "Διαθέσιμα αντίτυπα: " << b->countAvailable() << "\n";
-                } else cout << "Σφάλμα: Το βιβλίο δεν βρέθηκε.\n";
+                    cout << "--- Διαθέσιμα Αντίτυπα ---\n";
+                    CopyNode* currentCopy = b->copiesHead; //κεφαλή για διάτρεξη της λίστας
+                    while (currentCopy) {
+                        if (currentCopy->status == "available") {//αν το βιβλίο είναι διαθέσιμο , εμφανίζουμε το ID
+                            cout << " -> ID: " << currentCopy->copyID << "\n";
+                        }
+                        currentCopy = currentCopy->next;
+                    }
+                    cout << "Συνολικός αριθμός διαθέσιμων: " << b->countAvailable() << "\n";
+                } else cout << "Σφάλμα: Το βιβλίο δεν βρέθηκε."<< endl;
                 break;
             }
              // Εάν ο χρήστης επιλέξει 0, εμφανίζεται μήνυμα εξόδου και το πρόγραμμα τερματίζει 
@@ -178,7 +186,7 @@ int main() {
                 if (ans == "y" || ans == "Y") {
                     lib->saveToFile("library.txt");
                 }
-                cout << "Τερματισμός προγράμματος...\n";
+                cout << "Τερματισμός προγράμματος..."<< endl;
                 break;
             }
             default:          // Εάν ο χρήστης εισάγει μια μη έγκυρη επιλογή, εμφανίζεται μήνυμα σφάλματος και το μενού εμφανίζεται ξανά
