@@ -1,4 +1,4 @@
-#define once  //ώστε να αποτραπεί ο ορισμός των κλάσεων δεύτερη φορά σε περίπτωση περισσότερων απο ένα include
+#pragma once  //ώστε να αποτραπεί ο ορισμός των κλάσεων δεύτερη φορά σε περίπτωση περισσότερων απο ένα include
 #include <string>
 #include <vector> //Για την βοηθητική συνάρτηση που παρέχεται από εκφώνηση
 //αποφεύγεται η χρήση namespace στην βιβλιοθήκη για αποφυγή τυχών ζητημάτων.
@@ -14,9 +14,9 @@ class BookNode {
        BookNode* next; //Δείκτης τύπου BookNode που δείχνει στον επόμενο κόμβο της κύριας λίστας LOB, με την επωνυμία του βιβλίου 
 
        friend class Library;
-         friend int main();                    /*Δίνουμε τις διπλανές ως φιλικές κλάσεις, έτσι ώστε να έχουν πρόρσβαη στα ιδιοτηκά στοιχεία*/
+       friend int main();                    /*Δίνουμε τις διπλανές ως φιλικές κλάσεις, έτσι ώστε να έχουν πρόρσβαη στα ιδιωτικά στοιχεία*/
     public:
-        BookNode(std::string d , std::string a, std::string isbn); /*Δημιουργία κατασκευαστή ώστε όταν δημιουργηθεί αντικείμενο τύπου BookNod
+        BookNode(std::string d , std::string a, std::string isbn); /*Δημιουργία κατασκευαστή ώστε όταν δημιουργηθεί αντικείμενο τύπου BookNode
                                                                     τα στοιχεία του να έχουν αρχικές τιμές*/
         void addCopy(int copyid, std::string status = "available"); // αρχικοποίηση μεθόδων
         void removeCopy(int copyid);
@@ -32,7 +32,7 @@ class CopyNode{
         std::string status;
         CopyNode* next;
 
-        friend class BookNode; /*Δίνουμε τις διπλανές ως φιλικές κλάσεις, έτσι ώστε να έχουν πρόρσβαη στα ιδιοτικά στοιχεία*/
+        friend class BookNode; /*Δίνουμε τις διπλανές ως φιλικές κλάσεις, έτσι ώστε να έχουν πρόσβαση στα ιδιωτικά στοιχεία*/
         friend class Library;
         friend int main();
 

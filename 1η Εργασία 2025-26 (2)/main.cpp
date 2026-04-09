@@ -101,7 +101,7 @@ int main() {
                 lib->removeBook(isbn);
                 break;
             }
-            case 7: { // Νέο αντίτυπο (με έλεγχο αν υπάρχει το βιβλίο)
+            case 7: { // Νέο αντίτυπο (με έλεγχο αν υπάρχει το βιβλίο και το id)
                 string isbn;
                 int copyId;
                 cout << "Δώσε ISBN βιβλίου: ";
@@ -110,8 +110,24 @@ int main() {
                 if (b) {
                     cout << "Δώσε νέο ID αντιτύπου: ";
                     cin >> copyId;
-                    b->addCopy(copyId, "available");
-                    cout << "Το αντίτυπο προστέθηκε!"<<endl;
+                    
+                    CopyNode* current = b-> copiesHead;
+                    bool alreadyExists = false;//Έλεγχος αν το id υπάρχει ήδη
+                    while(current){
+                        if (current -> copyID == copyId){
+                            alreadyExists = true; //εφόσον βρέθηκε ίδιο copyid, σταματάμε
+                            break;
+                        }
+                        current = current -> next;
+                    }
+                    if (alreadyExists){
+                        cout << "Υπάρχει ήδη αντίτυπο με ID: "<<copyId << "!"<<endl;
+
+                    }
+                    else{
+                        b->addCopy(copyId, "available");
+                        cout << "Το αντίτυπο προστέθηκε!"<<endl;
+                    }
                 } else {
                     cout << "Σφάλμα: Το βιβλίο δεν βρέθηκε."<<endl;
                 }
@@ -142,7 +158,7 @@ int main() {
                     if (b->borrowCopy(copyId)) {
                         cout << "Επιτυχής δανεισμός! Εναπομείναντα διαθέσιμα αντίτυπα: " << b->countAvailable() << endl;
                     } else {
-                        cout << "Σφάλμα: Το αντίτυπο είναι ήδη δανεισμένο ή δεν βρέθηκε."<<endl;
+                        cout << "Σφάλμα: Το αντίτυπο δεν είναι διαθέσιμο ή δεν βρέθηκε."<<endl;
                     }
                 } else cout << "Σφάλμα: Το βιβλίο δεν βρέθηκε."<<endl;
                 break;

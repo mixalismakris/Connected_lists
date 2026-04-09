@@ -15,7 +15,7 @@ vector<string> parseLine(const std::string& line, char delim) {
     return tokens;
 }
 
-// Υλοποίση constructor της κλάσης CopyNode
+// Υλοποίηση constructor της κλάσης CopyNode
 CopyNode::CopyNode(int c, string s) {
     copyID = c;  //Αρχικοποιήση τιμών
     status = s;
@@ -23,7 +23,7 @@ CopyNode::CopyNode(int c, string s) {
     
 }
 
-// Υλοποίση constructor της κλάσης BookNode
+// Υλοποίηση constructor της κλάσης BookNode
 BookNode::BookNode(string d, string a, string isbn) {
     title = d; //Αρχικοποίηση τιμών
     author = a;
@@ -34,6 +34,8 @@ BookNode::BookNode(string d, string a, string isbn) {
 }
 void BookNode::addCopy(int copyid, string status) {
     CopyNode* newCopy = new CopyNode(copyid, status);
+    
+    
     if (copiesHead == nullptr ||  copyid < copiesHead -> copyID ){/*περίπτωση όπου το νέο αντίγραφο πρέπει να μπει στην αρχή της λίστας.Αυτό συμβαίνει εάν
                                                                         η λίστα είναι κενή ή εάν το copyID του καινόυργιου αντιγράγου είναι μικρότερο από του ήδη
                                                                         πρώτου της λίστας*/
@@ -49,7 +51,7 @@ void BookNode::addCopy(int copyid, string status) {
                                                                     είμαστε η συνθήκη σταματάει,και το αντίγραφο μπάινει στο τέλος της λίστας) και
                                                                     το copyID του επόμενου κόμβου είναι μικρότερο από το νέο που εισάγεται, η συνθήκη
                                                                     είναι αληθής.
-                                                                    */
+                                                                    */                                              
             current = current -> next; //διασχίζουμε την λίστα, προχωράμε έναν κόμβο μπροστά
         }
         //εφόσον έχει τελείωσει η συνθήκη έχει βρεθεί η θέση εισαγωγής του νέου αντιγράφου.
@@ -101,7 +103,7 @@ void BookNode::removeCopy(int copyid) {
     while(current && current -> next){//όσο υπάρχει ο τωρινός κόμβος αλλα ΚΑΙ ο επόμενος, επανέλαβε
         if (current -> next -> copyID == copyid){ //ελέγχουμε τον επόμενο του τωρινόυ,για ευκολότερη αντιμετάθεση
             if(current -> next -> status == "borrowed"){ //είναι δανεισμένο
-                cout <<"Το αντίγραφο έχει δανειστεί! Δεν μπορει να διαγραφεί"<<endl;
+                cout <<"Το αντίγραφο έχει δανειστεί! Δεν μπορει να διαγραφεί."<<endl;
                 return;
             }
             else{
@@ -113,7 +115,7 @@ void BookNode::removeCopy(int copyid) {
         }
         current = current -> next; //διάσχηση λίστας
     }
-    cout << "Το αντίγραφο δεν βρέθηκε" << endl;
+    cout << "Το αντίγραφο δεν βρέθηκε." << endl;
 
 }
 void BookNode::returnCopy(int copyid) {
@@ -131,12 +133,12 @@ void BookNode::returnCopy(int copyid) {
                 cin >> answer;
                 if (answer == "y" || answer == "Y" ){
                     current -> status = "available"; //αλλαγή κατάστασης σε διαθέσιμο
-                    cout <<"επιστράφηκε το βιβλίο σε καλή κατάσταση" <<endl;
+                    cout <<"Επιστράφηκε το βιβλίο σε καλή κατάσταση." <<endl;
                     return;
                 }
                 else if (answer == "n" || answer == "N"){
                     current -> status = "damaged"; //αλλαγή κατάστασης σε κατεστραμένο
-                    cout <<"επιστράφηκε το βιβλίο σε κακή κατάσταση" <<endl;
+                    cout <<"Επιστράφηκε το βιβλίο σε κακή κατάσταση." <<endl;
                     return;
                 }
                 else{
@@ -146,7 +148,7 @@ void BookNode::returnCopy(int copyid) {
         }
         current = current -> next;
     }
-    cout << "Το αντίγραφο δεν βρέθηκε!"<< endl;
+    cout << "Το αντίτυπο δεν βρέθηκε!"<< endl;
 
 }
 int BookNode::countAvailable() {
@@ -160,7 +162,7 @@ int BookNode::countAvailable() {
     return count;
 }
 
-// Υλοποίση της κλάσης Library
+// Υλοποίηση της κλάσης Library
 Library::Library() {
     booksHead = nullptr;
 
@@ -292,7 +294,17 @@ void Library::printAll() {
             cout<< "Τίτλος: "<< current -> title << endl;
             cout<< "Συγγραφέας: " << current -> author <<endl ;
             cout << "ISBN: " << current -> ISBN << endl;
-            cout << "Αριθμός διαθέσιμων βιβλίων: " << current -> countAvailable() << endl;
+            cout << "Αριθμός διαθέσιμων αντιγράφων: " << current -> countAvailable() << endl;
+
+            int totalCopies = 0; //μετρητής συνολικών αντιγράφων
+            CopyNode* currentCopy = current -> copiesHead; //κεφαλή λίστας αντιγράφων για διάτρεξη.
+            while(currentCopy){
+                totalCopies++; //αυξάνουμε τα συνολικά αντίγραφα κατά ένα
+                currentCopy = currentCopy -> next;//προχωράμε στον επόμενο κόμβο της λίστας
+
+            }
+            //έχουμε τον συνολικό αριθμό αντιγράφων, damaged και μη
+            cout << "Αριθμός συνολικών αντιγράφων: " << totalCopies << endl;
 
             current = current -> next; //επόμενη διεύθυνση κόμβου
     }
